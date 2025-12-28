@@ -5,8 +5,24 @@
   --accent: #d16ba5;
   --bg: #faf9fc;
   --text: #2d2d2d;
+  --light-gray: #f3f3f3;
 }
 
+/* Remove mobile tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove focus outline glow on links & buttons */
+a:focus,
+a:active,
+button:focus,
+button:active {
+  outline: none;
+  box-shadow: none;
+}
+
+/* RESET */
 * {
   box-sizing: border-box;
 }
@@ -22,12 +38,11 @@ body {
 /* ================= HEADER ================= */
 header {
   height: 64px;
+  background: white;
+  border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 16px;
-  background: white;
-  border-bottom: 1px solid #eee;
   position: relative;
 }
 
@@ -45,7 +60,6 @@ header {
   font-size: 18px;
   font-weight: 600;
   color: var(--dark-purple);
-  text-align: center;
 }
 
 /* ================= SIDE MENU ================= */
@@ -59,40 +73,40 @@ nav {
   border-right: 1px solid #eee;
   transition: left 0.3s ease;
   z-index: 10;
+  overflow-y: auto;
+  padding-bottom: 40px;
 }
 
 nav.show {
   left: 0;
 }
 
+/* MAIN NAV ITEMS */
 nav a {
   margin: 6px 12px;
   padding: 12px 16px;
   border-radius: 14px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  text-decoration: none;
+  gap: 12px;
   font-size: 13.5px;
+  text-decoration: none;
   color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
 nav a i {
-  min-width: 20px;
   font-size: 16px;
+  min-width: 20px;
   color: var(--primary);
-  text-align: center;
 }
 
 nav a:hover {
   background: var(--primary-light);
 }
 
-/* ACTIVE MENU ITEM */
+/* ACTIVE MAIN ITEM */
 nav a.active {
   background: var(--primary);
   color: white;
@@ -104,6 +118,54 @@ nav a.active i {
   color: white;
 }
 
+/* ================= DROPDOWN ================= */
+
+/* Pregnancy Care Features button (SAME as others) */
+.dropdown-toggle {
+  justify-content: space-between;
+}
+
+.dropdown-toggle .caret {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate caret when open */
+.dropdown-toggle.open .caret {
+  transform: rotate(180deg);
+}
+
+/* SUBMENU CONTAINER */
+.submenu {
+  display: none;
+  margin: 4px 12px 8px;
+}
+
+/* SUBSECTION BUTTONS */
+.submenu a {
+  background: var(--light-gray);
+  color: var(--text);
+  margin: 6px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12.8px;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+/* Subsection hover */
+.submenu a:hover {
+  background: var(--primary-light);
+}
+
+/* ACTIVE SUBSECTION */
+.submenu a.active {
+  background: var(--primary-light);
+  color: var(--accent);
+  font-weight: 600;
+}
+
 /* ================= CONTENT ================= */
 main {
   height: calc(100vh - 64px);
@@ -111,11 +173,8 @@ main {
   padding: 16px;
 }
 
-/* ================= SECTION TITLE (H2) ================= */
+/* ================= HEADINGS ================= */
 h2 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-size: 20px;
   font-weight: 600;
   color: var(--primary);
@@ -123,9 +182,11 @@ h2 {
   position: relative;
 }
 
-h2 i {
-  font-size: 20px;
-  color: var(--accent);
+
+h3 {
+  color: #000;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 /* ================= CARD ================= */
@@ -133,7 +194,7 @@ h2 i {
   background: white;
   padding: 18px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   margin-bottom: 16px;
 }
 
@@ -142,14 +203,6 @@ h2 i {
   line-height: 1.7;
 }
 
-/* SUBHEADINGS */
-.card h3 {
-  color: #000000;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-/* LISTS */
 .card ul {
   padding-left: 18px;
 }
@@ -157,12 +210,120 @@ h2 i {
 .card li {
   font-size: 13.5px;
   line-height: 1.7;
-  margin-bottom: 6px;
 }
 
-/* IMAGES */
+/* ================= ACCORDION ================= */
+.accordion-item {
+  background: white;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.accordion-header {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 16px;
+  font-size: 14.5px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  color: var(--dark-purple);
+}
+
+.accordion-header i {
+  transition: transform 0.3s ease;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 16px;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 500px;
+  padding-bottom: 14px;
+}
+
+.accordion-item.active .accordion-header i {
+  transform: rotate(180deg);
+}
+
+/* Dropdown main button (same as others by default) */
+.dropdown-toggle {
+  justify-content: space-between;
+}
+
+/* Rotate chevron when open */
+.dropdown-toggle.open .caret {
+  transform: rotate(180deg);
+}
+
+/* Submenu hidden by default */
+.submenu {
+  display: none;
+  margin: 6px 12px 8px;
+}
+
+/* Subsection buttons (inactive) */
+.submenu a {
+  background: var(--light-gray);
+  color: var(--text);
+  margin: 6px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12.8px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.submenu a:hover {
+  background: var(--primary-light);
+}
+
+/* Active subsection */
+.submenu a.active {
+  background: var(--primary-light);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ===============================
+   CONTENT IMAGES (CARE / SECTIONS)
+================================ */
+
+/* Image wrapper (optional but recommended) */
+.image-box {
+  margin: 16px 0;
+}
+
+/* Main content images */
+.image-box img,
 .card img {
   width: 100%;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: block;
 }
+
+/* Image caption (optional) */
+.image-caption {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: #666;
+  text-align: center;
+}
+
+/* Smaller images (if needed later) */
+.image-small img {
+  max-height: 180px;
+}
+
